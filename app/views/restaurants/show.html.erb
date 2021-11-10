@@ -1,14 +1,28 @@
-<h1>Yelp</h1>
+<div class="container-main">
+  <nav class="navbar navbar-light bg-light justify-content-between rounded">
+    <h1>Yelp</h1>
+    <%= link_to "Back", restaurants_path, class: "btn btn-danger" %>
+  </nav>
 
-<h4><strong><%= @restaurant.name %></strong></h4>
-<p>Food: <%= @restaurant.category.capitalize %></p>
-<p>Address: <%= @restaurant.address %></p>
-<ul class="list-group"><p>Reviews from yelpers:</p>
-  <% @restaurant.reviews.each do |review| %>
-    <li class="list-group-item"><%= review.content %></li>
-  <% end %>
-</ul>
-<p>How to contact restaurant: <%= @restaurant.phone_number %></p>
+    <h4><strong><%= @restaurant.name %></strong></h4>
+    <p>Food: <%= @restaurant.category.capitalize %></p>
+    <p>Address: <%= @restaurant.address %></p>
+    <ul class="list-group"><p>Reviews from yelpers:</p>
+      <% @restaurant.reviews.each do |review| %>
+        <li class="list-group-item"><%= review.content %></li>
+      <% end %>
+    </ul>
+    <p>How to contact restaurant: <%= @restaurant.phone_number %></p>
 
-<%= link_to "Back", restaurants_path, class: "btn btn-danger" %> |
-<%= link_to "Leave a review", new_restaurant_review_path(@restaurant), class: "btn btn-danger" %>
+    <%# <%= link_to "Leave a review", new_restaurant_review_path(@restaurant), class: "btn btn-danger" %>
+
+    <h2>Leave a review to <%= @restaurant.name %></h2>
+
+    <div class="form-review">
+      <%= simple_form_for [@restaurant, @review] do |f| %>
+          <%= f.input :content %>
+          <%= f.input :rating %>
+          <%= f.submit "Leave a review", class:"btn btn-danger" %>
+        <% end %>
+    </div>
+</div>
